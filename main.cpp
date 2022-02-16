@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <ctime>
 using namespace std;
 
 vector<char> letters;
@@ -23,20 +24,24 @@ bool findMatch(char ch, const string& word) {
 }
 
 int main() {
-//    ifstream fin("C:\\Users\\isaac\\Documents\\[Coding Projects]\\data-bubble-connector\\dictionary.txt");
-//    ofstream fout("C:\\Users\\isaac\\Documents\\[Coding Projects]\\data-bubble-connector\\results.txt");
+//    ifstream inFile("C:\\Users\\isaac\\Documents\\[Coding Projects]\\data-bubble-connector\\dictionary.txt");
+//    ofstream outFile("C:\\Users\\isaac\\Documents\\[Coding Projects]\\data-bubble-connector\\results.txt");
 
-    ifstream fin("dictionary.txt");
-    ofstream fout("results.txt");
+    ifstream inFile(R"(C:\Users\isaac\Documents\[Coding Projects]\C-Playground\dictionary.txt)");
+    ofstream outFile("results.txt");
+
 
     string line;
+    time_t start, end;
     letters = {'l', 'a', 'd', 'y', 'b', 'u', 'g'};
     bool wordIsValid;
-    bool foundLetterMatch;
 
     // for every line in file
-    while (getline(fin, line)) {
+    time(&start);
+
+    while (getline(inFile, line)) {
         cout << line << endl;
+        outFile << line << endl;
 
         // Don't assume the word is valid yet
         wordIsValid = false;
@@ -49,14 +54,17 @@ int main() {
 
             if (wordIsValid) {
                 // Add word to file
-                fout << line << endl;
+                outFile << line << endl;
             }
         }
     }
 
-    fin.close();
-    fout.close();
+    time(&end);
+
+    int totalTime = end - start;
+    cout << totalTime << "s";
+
+    inFile.close();
+    outFile.close();
 
 }
-
-
